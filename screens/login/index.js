@@ -9,15 +9,18 @@ import TextField from '../../components/ui/textField'
 
 class Login extends React.Component {
 
-  state = {
-    username: '',
-    emailAddress: '',
-    password: '',
-    confirmPassword: '',
+  constructor(props) {
+    super(props);
+    this.state = {
+      username: '',
+      password: ''
+    };
+
+    this.onChange = this.onChange.bind(this)
   }
 
   onChange(event, value) {
-
+    //this.setState({event.target.value: value})
   }
 
   render() {
@@ -33,21 +36,23 @@ class Login extends React.Component {
           <TextField
             variant={'password'}
             label={'Password'}
-            value={this.state.username}
+            value={this.state.password}
             onChange={this.onChange}
           />
-          <Button
-            title={'Submit'}
-            onPress={()=> {
-              Actions.home()
-            }}
-            variant='solid'
-            color='primary'
-            size='medium'
-          />
+          <View style={styles.button}>
+            <Button
+              title={'Submit'}
+              onPress={()=> {
+                Actions.main()
+              }}
+              variant='solid'
+              color='primary'
+              size='medium'
+            />
+          </View>
         </View>
         <View style={styles.footerContent}>
-          <View style={styles.link}>
+          <View style={styles.linkLeft}>
             <Button
               title={'Not Registered?'}
               onPress={()=> {
@@ -58,7 +63,7 @@ class Login extends React.Component {
               size='medium'
             />
           </View>
-          <View style={styles.link}>
+          <View style={styles.linkRight}>
             <Button
               title={'Forgot Password?'}
               onPress={()=> {
@@ -108,8 +113,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center'
   },
-  link: {
-    width: '30%'
+  linkLeft: {
+    width: '40%'
+  },
+  linkRight: {
+    width: '40%'
+  },
+  button: {
+    marginTop: 24,
+    width: '100%'
   }
 });
 

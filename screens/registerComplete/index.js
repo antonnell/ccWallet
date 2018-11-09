@@ -15,16 +15,17 @@ class RegisterComplete extends React.Component {
         <View style={styles.content}>
           <Text style={styles.heading}>ACCOUNT CREATED</Text>
           <Text style={styles.paragraph}>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.</Text>
-          <Button
-            title={'Tap here to proceed'}
-            onPress={()=> {
-              Alert.alert('naviage to quick start guide')
-              Actions.home()
-            }}
-            variant='solid'
-            color='primary'
-            size='medium'
-          />
+          <View style={styles.buttonSpacing}>
+            <Button
+              title={'Tap here to proceed'}
+              onPress={()=> {
+                Actions.quickStart()
+              }}
+              variant='solid'
+              color='primary'
+              size='medium'
+            />
+          </View>
         </View>
       </View>
     );
@@ -59,6 +60,11 @@ const styles = StyleSheet.create({
     fontWeight: '100',
     textAlign: 'center',
     marginBottom: 20
+  },
+  buttonSpacing: {
+    marginTop: 20,
+    marginBottom: 20,
+    width: '100%'
   }
 });
 

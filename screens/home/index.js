@@ -29,16 +29,18 @@ class Home extends React.Component {
             color='primary'
             size='medium'
           />
-          <Button
-            title={'Register'}
-            onPress={()=> {
-              Actions.register()
-            }}
-            variant='solid'
-            color='primary'
-            size='medium'
-          />
-      </View>
+          <View style={styles.button}>
+            <Button
+              title={'Register'}
+              onPress={()=> {
+                Actions.register()
+              }}
+              variant='solid'
+              color='primary'
+              size='medium'
+            />
+          </View>
+        </View>
       </View>
     );
   }
@@ -71,6 +73,10 @@ const styles = StyleSheet.create({
     fontWeight: '100',
     textAlign: 'center',
     marginBottom: 20
+  },
+  button: {
+    marginTop: 12,
+    width: '100%'
   }
 });
 

@@ -6,10 +6,13 @@ export default class CurveTextField extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      focussed: false
+      value: '',
+      focussed: false,
+      placeholder: this.props.placeholder
     };
 
     this.onFocus = this.onFocus.bind(this)
+    this.onChange = this.onChange.bind(this)
     this.onBlur = this.onBlur.bind(this)
   }
 
@@ -19,8 +22,8 @@ export default class CurveTextField extends Component {
   onBlur() {
     this.setState({focussed: false})
   }
-  onChange(val) {
-    this.setState({value: val})
+  onChange(value) {
+    this.setState({value})
   }
 
   render() {
@@ -29,10 +32,43 @@ export default class CurveTextField extends Component {
     let inputStyle = {}
     let inputContainerStyle = {}
 
-    if(this.state.focussed) {
-      textStyle = styles.textFocussed
-      inputStyle = styles.inputFocussed
-      inputContainerStyle = styles.inputContainerFocussed
+
+    switch (this.props.color) {
+      case 'primary':
+        if(!this.state.focussed) {
+          textStyle = styles.primary.normal.text
+          inputStyle = styles.primary.normal.input
+          inputContainerStyle = styles.primary.normal.inputContainer
+        } else {
+          textStyle = styles.primary.focussed.text
+          inputStyle = styles.primary.focussed.input
+          inputContainerStyle = styles.primary.focussed.inputContainer
+        }
+        break;
+      case 'secondary':
+        if(!this.state.focussed) {
+          textStyle = styles.secondary.normal.text
+          inputStyle = styles.secondary.normal.input
+          inputContainerStyle = styles.secondary.normal.inputContainer
+        } else {
+          textStyle = styles.secondary.focussed.text
+          inputStyle = styles.secondary.focussed.input
+          inputContainerStyle = styles.secondary.focussed.inputContainer
+        }
+        break;
+      case 'tertiary':
+
+        break;
+      default:
+        if(!this.state.focussed) {
+          textStyle = styles.primary.normal.text
+          inputStyle = styles.primary.normal.input
+          inputContainerStyle = styles.primary.normal.inputContainer
+        } else {
+          textStyle = styles.primary.focussed.text
+          inputStyle = styles.primary.focussed.input
+          inputContainerStyle = styles.primary.focussed.inputContainer
+        }
     }
 
     return (
@@ -44,8 +80,11 @@ export default class CurveTextField extends Component {
             onBlur={this.onBlur}
             underlineColorAndroid = "transparent"
             style={Object.assign({}, styles.input, inputStyle)}
-            // onChangeText={this.onChange}
-            // value={this.value}
+            onChangeText={this.onChange}
+            value={this.state.value}
+            placeholder={this.props.placeholder}
+            secureTextEntry={this.props.variant=='password'}
+            keyboardType={this.props.variant=='password'?'default':this.props.variant}
           />
         </View>
       </View>
@@ -62,12 +101,8 @@ const styles = {
   },
   text: {
     fontFamily: 'abel-regular',
-    color: '#bbb',
     fontSize: 16,
     marginBottom: 10
-  },
-  textFocussed: {
-    color: '#fff'
   },
   inputContainer: {
     padding: 8,
@@ -75,7 +110,6 @@ const styles = {
     paddingRight: 16,
     borderWidth: 1,
     borderRadius: 9,
-    borderColor: '#bbb',
     borderStyle: 'solid'
   },
   inputContainerFocussed: {
@@ -84,24 +118,70 @@ const styles = {
     paddingRight: 16,
     borderWidth: 1,
     borderRadius: 9,
-    borderColor: '#fff',
     borderStyle: 'solid'
   },
   input: {
     fontFamily: 'abel-regular',
-    color: '#bbb',
     fontSize: 18
   },
   inputFocussed: {
     fontFamily: 'abel-regular',
-    color: '#ff',
     fontSize: 18
+  },
+  primary: {
+    normal: {
+      input: {
+        color: '#bbb',
+      },
+      inputContainer: {
+        borderColor: '#bbb',
+      },
+      text: {
+        color: '#bbb',
+      }
+    },
+    focussed: {
+      input: {
+        color: '#fff',
+      },
+      inputContainer: {
+        borderColor: '#fff',
+      },
+      text: {
+        color: '#fff',
+      }
+    }
+  },
+  secondary: {
+    normal: {
+      input: {
+        color: '#848484',
+      },
+      inputContainer: {
+        borderColor: '#848484',
+      },
+      text: {
+        color: '#848484',
+      }
+    },
+    focussed: {
+      input: {
+        color: '#333',
+      },
+      inputContainer: {
+        borderColor: '#333',
+      },
+      text: {
+        color: '#333',
+      }
+    }
   }
 };
 
 CurveTextField.propTypes = {
   label: PropTypes.string.isRequired,
-  variant: PropTypes.oneOf(['text', 'password', 'area']),
+  variant: PropTypes.oneOf(['text', 'password', 'email-address', 'numeric']),
   value: PropTypes.string.isRequired,
-  onChange: PropTypes.func.isRequired
+  onChange: PropTypes.func.isRequired,
+  color: PropTypes.oneOf(['primary', 'secondary', 'tertiary'])
 };

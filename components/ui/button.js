@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Button, Text, View, Alert, TouchableNativeFeedback, Platform } from 'react-native';
+import { MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons';
 
 export default class CurveButton extends Component {
 
@@ -79,7 +80,7 @@ export default class CurveButton extends Component {
         <TouchableNativeFeedback
           onPress={props.onPress}
           background={Platform.OS === 'android' ? TouchableNativeFeedback.SelectableBackground() : ''}>
-          <View style={Object.assign({}, styles.button, styles.solid, buttonStyle, buttonSize, buttonColor)}>
+          <View style={Object.assign({}, styles.button, buttonStyle, buttonSize, buttonColor)}>
             <Text style={Object.assign({}, styles.text, textSize, textColor)}>{props.title.toUpperCase()}</Text>
           </View>
         </TouchableNativeFeedback>
@@ -147,9 +148,50 @@ export default class CurveButton extends Component {
         <TouchableNativeFeedback
           onPress={props.onPress}
           background={Platform.OS === 'android' ? TouchableNativeFeedback.SelectableBackground() : ''}>
-          <View style={Object.assign({}, styles.button, styles.outline, buttonStyle, buttonSize, buttonColor)}>
+          <View style={Object.assign({}, styles.button, buttonStyle, buttonSize, buttonColor)}>
             <Text style={Object.assign({}, styles.text, textSize, textColor)}>{props.title.toUpperCase()}</Text>
           </View>
+        </TouchableNativeFeedback>
+      </View>
+    );
+  }
+
+  renderIcon(props) {
+
+    let icon = null
+    let color = null
+
+    switch(props.color) {
+      case 'primary':
+        color = '#fff'
+        break;
+      case 'secondary':
+        color = '#333'
+        break;
+      case 'tertiary':
+        color = '#fff'
+        break; 
+      default:
+        color = '#fff'
+    }
+
+    switch (props.iconType) {
+      case 'MaterialIcons':
+        icon = <MaterialIcons name={props.icon} size={36} color={color} />
+        break;
+      case 'MaterialCommunityIcons':
+        icon = <MaterialIcons name={props.icon} size={36} color={color} />
+        break;
+      default:
+        icon = <MaterialIcons name={props.icon} size={36} color={color} />
+    }
+
+    return (
+      <View style={styles.container}>
+        <TouchableNativeFeedback
+          onPress={props.onPress}
+          background={Platform.OS === 'android' ? TouchableNativeFeedback.SelectableBackground() : ''}>
+          {icon}
         </TouchableNativeFeedback>
       </View>
     );
@@ -177,8 +219,8 @@ const styles = {
    width: '100%'
   },
   button: {
-    marginBottom: 20,
-    marginTop: 20,
+    marginBottom: 6,
+    marginTop: 6,
     width: '100%',
     alignItems: 'center',
   },
@@ -189,7 +231,7 @@ const styles = {
   solid: {
     style: {
       round: {
-        borderRadius: 6
+
       },
       block: {
         borderRadius: 0
@@ -198,28 +240,33 @@ const styles = {
     size: {
       small: {
         button: {
-          height: 30
+          height: 34,
+          paddingLeft: 6,
+          paddingRight: 6,
+          borderRadius: 4
         },
         text: {
-          lineHeight: 28,
-          fontSize: 14
+          lineHeight: 33,
+          fontSize: 13
         }
       },
       medium: {
         button: {
-          height: 60
+          height: 56,
+          borderRadius: 9
         },
         text: {
-          lineHeight: 56,
-          fontSize: 17
+          lineHeight: 52,
+          fontSize: 16
         }
       },
       large: {
         button: {
-          height: 90
+          height: 70,
+          borderRadius: 9
         },
         text: {
-          lineHeight: 88,
+          lineHeight: 68,
           fontSize: 18
         }
       },
@@ -235,18 +282,18 @@ const styles = {
       },
       secondary: {
         button: {
-          backgroundColor: '#fff'
+          backgroundColor: '#848484'
         },
         text: {
-          color: '#333'
+          color: '#fff'
         },
       },
       tertiary: {
         button: {
-          backgroundColor: '#fff'
+          backgroundColor: '#262626'
         },
         text: {
-          color: '#333'
+          color: '#fff'
         },
       },
     }
@@ -254,7 +301,7 @@ const styles = {
   outline: {
     style: {
       round: {
-        borderRadius: 6,
+        borderRadius: 9,
         borderStyle: 'solid',
         borderWidth: 3
       },
@@ -267,28 +314,33 @@ const styles = {
     size: {
       small: {
         button: {
-          height: 30
+          height: 34,
+          paddingLeft: 6,
+          paddingRight: 6,
+          borderRadius: 4
         },
         text: {
-          lineHeight: 28,
-          fontSize: 14
+          lineHeight: 33,
+          fontSize: 13
         }
       },
       medium: {
         button: {
-          height: 60
+          height: 56,
+          borderRadius: 9
         },
         text: {
-          lineHeight: 56,
-          fontSize: 17
+          lineHeight: 52,
+          fontSize: 16
         }
       },
       large: {
         button: {
-          height: 90
+          height: 70,
+          borderRadius: 9
         },
         text: {
-          lineHeight: 88,
+          lineHeight: 68,
           fontSize: 18
         }
       },
@@ -339,5 +391,5 @@ CurveButton.propTypes = {
   size: PropTypes.oneOf(['small', 'medium', 'large']),
   color: PropTypes.oneOf(['primary', 'secondary', 'tertiary']),
   style: PropTypes.oneOf(['round', 'block']),
-  icon: PropTypes.object
+  icon: PropTypes.string
 };

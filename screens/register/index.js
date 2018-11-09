@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, Alert, Image } from 'react-native';
+import { StyleSheet, Text, View, ScrollView } from 'react-native';
 import { Font } from 'expo';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
@@ -9,15 +9,20 @@ import TextField from '../../components/ui/textField'
 
 class Register extends React.Component {
 
-  state = {
-    username: '',
-    emailAddress: '',
-    password: '',
-    confirmPassword: '',
+  constructor(props) {
+    super(props);
+    this.state = {
+      username: '',
+      emailAddress: '',
+      password: '',
+      confirmPassword: ''
+    };
+
+    this.onChange = this.onChange.bind(this)
   }
 
   onChange(event, value) {
-
+    //this.setState({event.target.value: value})
   }
 
   render() {
@@ -32,20 +37,23 @@ class Register extends React.Component {
           />
           <TextField
             label={'Email Address'}
-            value={this.state.username}
+            value={this.state.emailAddress}
             onChange={this.onChange}
+            variant={'email-address'}
           />
           <TextField
             variant={'password'}
             label={'Password'}
-            value={this.state.username}
+            value={this.state.password}
             onChange={this.onChange}
+            variant={'password'}
           />
           <TextField
             variant={'password'}
             label={'Confirm Password'}
-            value={this.state.username}
+            value={this.state.confirmPassword}
             onChange={this.onChange}
+            variant={'password'}
           />
         </View>
         <View style={styles.footerContent}>

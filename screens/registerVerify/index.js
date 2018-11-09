@@ -15,25 +15,29 @@ class RegisterVerify extends React.Component {
         <View style={styles.content}>
           <Text style={styles.heading}>PLEASE VERIFY YOUR DETAILS</Text>
           <Text style={styles.paragraph}>We have sent an email to somebody@somewhere.com, please visit your inbox and verify your email by clicking on the provided link.</Text>
-          <Button
-            title={'Tap here to proceed'}
-            onPress={()=> {
-              Actions.registerComplete()
-            }}
-            variant='outline'
-            color='primary'
-            size='medium'
-          />
-          <Button
-            title={'Resend verification mail'}
-            onPress={()=> {
-              Alert.alert('trigger email resend')
-            }}
-            variant='link'
-            color='primary'
-            size='medium'
-          />
-      </View>
+          <View style={styles.buttonSpacing}>
+            <Button
+              title={'Tap here to proceed'}
+              onPress={()=> {
+                Actions.registerComplete()
+              }}
+              variant='outline'
+              color='primary'
+              size='medium'
+            />
+          </View>
+          <View style={styles.buttonSpacing}>
+            <Button
+              title={'Resend verification mail'}
+              onPress={()=> {
+                Alert.alert('trigger email resend')
+              }}
+              variant='link'
+              color='primary'
+              size='medium'
+            />
+          </View>
+        </View>
       </View>
     );
   }
@@ -67,6 +71,11 @@ const styles = StyleSheet.create({
     fontWeight: '100',
     textAlign: 'center',
     marginBottom: 20
+  },
+  buttonSpacing: {
+    marginTop: 20,
+    marginBottom: 20,
+    width: '100%'
   }
 });
 
